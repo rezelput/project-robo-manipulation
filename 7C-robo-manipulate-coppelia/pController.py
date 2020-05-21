@@ -21,10 +21,10 @@ with b0RemoteApi.RemoteApiClient('b0RemoteApi_pythonClient','b0RemoteApi') as cl
     client.maxForce=100
 
     def simulationStepStarted(msg):
-        simTime=msg[1][b'simulationTime'];
+        simTime=msg[1][b'simulationTime']:
         
     def simulationStepDone(msg):
-        simTime=msg[1][b'simulationTime'];
+        simTime=msg[1][b'simulationTime']:
         client.doNextStep=True
         
     def jointAngleCallback(msg):
@@ -42,7 +42,7 @@ with b0RemoteApi.RemoteApiClient('b0RemoteApi_pythonClient','b0RemoteApi') as cl
             client.simxSpinOnce()
 
     def computeTargetVelocity():
-        dynStepSize=0.005
+        dynStepSize=0.001
         velUpperLimit=360*math.pi/180
         PID_P=0.1
         errorValue=client.targetAngle-client.jointAngle
@@ -64,8 +64,8 @@ with b0RemoteApi.RemoteApiClient('b0RemoteApi_pythonClient','b0RemoteApi') as cl
     jointHandle=client.simxGetObjectHandle('joint',client.simxServiceCall())
     client.simxSetJointTargetVelocity(jointHandle[1],360*math.pi/180,client.simxServiceCall())
     client.simxGetJointPosition(jointHandle[1],client.simxDefaultSubscriber(jointAngleCallback))
-    client.simxGetSimulationStepStarted(client.simxDefaultSubscriber(simulationStepStarted));
-    client.simxGetSimulationStepDone(client.simxDefaultSubscriber(simulationStepDone));
+    client.simxGetSimulationStepStarted(client.simxDefaultSubscriber(simulationStepStarted)):
+    client.simxGetSimulationStepDone(client.simxDefaultSubscriber(simulationStepDone)):
     
     client.simxSynchronous(True)
     
